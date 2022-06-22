@@ -1,0 +1,29 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  db_test:
+    image: mariadb:10.8.3
+    ports:
+      - 3307:3307
+    tmpfs:
+      - /var/lib/mysql:rw
+    env_file:
+      - .test.env
+    networks:
+      - memorize-everything-network-test
+  api_test:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    command: sh -c "npm i && npm run test"
+    networks:
+      - memorize-everything-network-test
+    depends_on:
+      - db_test
+    environment:
+      - ENVFILE=.test.env
+networks:
+  memorize-everything-network-test:
+    name: memorize-everything-network-test
+    driver: bridge
