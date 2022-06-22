@@ -12,6 +12,6 @@ afterAll(() => {
 })
 
 test('Healthcheck', async () => {
-    const result = await request.get('/health-check')
+    const result = await request.get('/health-check-fail')
     expect(result.status).toBe(200)
 })
