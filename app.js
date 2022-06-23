@@ -1,18 +1,26 @@
 const path = require('path')
+
 require('dotenv').config({
     path: path.relative(
         process.cwd(),
         path.join(__dirname, process.env.ENVFILE)
     ),
 })
+
+const bodyParser = require('body-parser')
+
 const express = require('express')
 const app = express()
 
-const knex = require('./database/models')
+app.use(bodyParser.json())
+
+const authRoutes = require('./routes/auth.routes')
 
 app.get('/health-check', (req, res) => {
     return res.json({
         status: 'ok',
     })
 })
+
+app.use('/auth', authRoutes)
 module.exports = app
