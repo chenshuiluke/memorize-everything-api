@@ -2,13 +2,13 @@ const supertest = require('supertest')
 let server
 let request
 jest.setTimeout(10000)
-beforeAll(() => {
+beforeAll(async () => {
     server = require('../app')
-    server = server.listen(process.env.API_PORT)
+    server = await server.listen(process.env.API_PORT)
     request = supertest(server)
 })
 
-afterAll(() => {
+afterAll(async () => {
     server.close()
 })
 

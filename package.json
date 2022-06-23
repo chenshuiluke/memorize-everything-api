@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "jest",
-    "test-watch": "jest --watchAll",
+    "test": "jest --detectOpenHandles --forceExit",
+    "test-watch": "jest --watchAll --detectOpenHandles",
     "migrate": "knex migrate:up",
     "prepare": "husky install"
   },
