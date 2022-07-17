@@ -1,7 +1,5 @@
-const { Model } = require('objection')
-const config = require('../../config')
-const knex = require('knex')(config.dbConfig())
+const User = require('./user')
 
-Model.knex(knex)
-
-module.exports = Model
+module.exports = {
+    User,
+}

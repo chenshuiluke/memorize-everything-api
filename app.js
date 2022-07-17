@@ -14,6 +14,13 @@ const app = express()
 
 app.use(bodyParser.json())
 
+app.use(function (err, req, res, next) {
+    res.status(err.status || 500)
+    res.json({
+        error: err,
+    })
+})
+
 const authRoutes = require('./routes/auth.routes')
 
 app.get('/health-check', (req, res) => {

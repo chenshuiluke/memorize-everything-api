@@ -1,4 +1,4 @@
-const Model = require('./index')
+const Model = require('./base')
 
 class User extends Model {
     static getTableName() {
