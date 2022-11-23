@@ -22,6 +22,7 @@ app.use(function (err, req, res, next) {
 })
 
 const authRoutes = require('./routes/auth.routes')
+const noteRoutes = require('./routes/note.routes')
 
 app.get('/health-check', (req, res) => {
     return res.json({
@@ -30,4 +31,5 @@ app.get('/health-check', (req, res) => {
 })
 
 app.use('/auth', authRoutes)
+app.use('/note', noteRoutes)
 module.exports = app

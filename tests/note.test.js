@@ -16,7 +16,19 @@ afterAll(async () => {
     await require('./utils').clearTestDb()
 })
 
-test('Healthcheck', async () => {
-    const result = await request.get('/health-check')
-    expect(result.status).toBe(200)
+test('Note creation', async () => {
+    await request
+        .post('/auth/register')
+        .send({
+            email: 'test@email.com',
+            password: 'test-password',
+            username: 'test',
+        })
+        .expect(200)
+    await request
+        .post('/note')
+        .send({
+            content: 'test@email.com',
+        })
+        .expect(200)
 })

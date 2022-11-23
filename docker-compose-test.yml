@@ -23,6 +23,8 @@ services:
       - db_test
     environment:
       - ENVFILE=.test.env
+    stdin_open: true # docker run -i
+    tty: true
 networks:
   memorize-everything-network-test:
     name: memorize-everything-network-test
