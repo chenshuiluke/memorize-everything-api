@@ -7,9 +7,12 @@ const { createNote } = require('../validators/note.validators')
 
 router.post('/', validator(createNote), async (req, res) => {
     try {
-        //@@@ TODO: Hash this password
-        const note = await Note.query().insert(req.body)
-        res.end()
+        const data = {
+            ...req.body,
+            user_id: req.user.id,
+        }
+        const note = await Note.query().insert(data)
+        res.json(note)
     } catch (error) {
         return setErrorResponse(res, error)
     }

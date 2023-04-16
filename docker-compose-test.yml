@@ -16,7 +16,8 @@ services:
       - "5001:5001"
     volumes:
       - .:/app
-    command: sh -c "npm i && npm run migrate && npm run test-watch"
+      - /app/node_modules
+    command: sh -c "npm i && npm run reset-db && npm run migrate && npm run test-watch"
     networks:
       - memorize-everything-network-test
     depends_on:

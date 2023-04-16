@@ -6,7 +6,8 @@ exports.up = function (knex) {
     return knex.schema.createTable('notes', function (table) {
         table.increments('id')
         table.text('content').notNullable()
-        table.integer('user_id').unsigned()
+        table.text('title').notNullable()
+        table.integer('user_id').unsigned().notNullable()
         table.foreign('user_id').references('users.id')
     })
 }

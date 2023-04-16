@@ -4,7 +4,7 @@ let request
 beforeAll(async () => {
     server = require('../app')
     server = await server.listen(process.env.API_PORT)
-    request = supertest(server)
+    request = supertest.agent(server)
 })
 
 beforeEach(async () => {
@@ -16,7 +16,34 @@ afterAll(async () => {
     await require('./utils').clearTestDb()
 })
 
-test('Note creation', async () => {
+test('Should create note successfully', async () => {
+    await request
+        .post('/auth/register')
+        .send({
+            email: 'test@email.com',
+            password: 'test-password',
+            username: 'test',
+        })
+        .expect(200)
+
+    await request
+        .post('/auth/login')
+        .send({
+            email: 'test@email.com',
+            password: 'test-password',
+        })
+        .expect(200)
+
+    await request
+        .post('/note')
+        .send({
+            content: 'content',
+            title: 'title',
+        })
+        .expect(200)
+})
+
+test('Should fail to create note if title is missing', async () => {
     await request
         .post('/auth/register')
         .send({
@@ -28,7 +55,7 @@ test('Note creation', async () => {
     await request
         .post('/note')
         .send({
-            content: 'test@email.com',
+            content: 'content',
         })
-        .expect(200)
+        .expect(400)
 })

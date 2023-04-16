@@ -17,6 +17,7 @@ services:
       - "9229:9229"
     volumes:
       - .:/app
+      - /app/node_modules
     command: sh -c "npm i && npm run migrate && ./node_modules/.bin/nodemon --inspect=0.0.0.0 -L ./index.js"
     networks:
       - memorize-everything-network
