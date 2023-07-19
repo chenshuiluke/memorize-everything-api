@@ -4,8 +4,9 @@ const { setErrorResponse } = require('../errors')
 const router = express.Router()
 const validator = require('../middleware/validator')
 const { createNote } = require('../validators/note.validators')
+const { isLoggedIn } = require('../middleware/auth')
 
-router.post('/', validator(createNote), async (req, res) => {
+router.post('/', isLoggedIn, validator(createNote), async (req, res) => {
     try {
         const data = {
             ...req.body,
